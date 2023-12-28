@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-title>
+      Detalle de Granja
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" name="id-card"></ion-icon>
+        Id:
+      </ion-label>
+      <ion-label>{{ granja.id }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/registro_granjas.svg"></ion-icon>
+        Nombre Granja:
+      </ion-label>
+      <ion-label>{{ granja.nombre }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon name="location"></ion-icon>
+        Coordenadas:
+      </ion-label>
+      <ion-label>{{granja.latitud}},&nbsp;{{granja.longitud}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/check.svg"></ion-icon>
+        Certificado GAB:
+      </ion-label>
+      <ion-label>{{ granja.certificadoGab ? 'SI' : 'NO' }}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

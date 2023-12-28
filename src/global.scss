@@ -1,0 +1,106 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import '@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+
+
+
+.ion-align-self-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toolbar {
+    --background: linear-gradient(45deg, rgba(255,246,125, 0.22) 0%, rgba(255,246,125, 0.22) 50%,rgba(63,62,62, 0.04) 50%, rgba(63,62,62, 0.04) 71%,rgba(251, 251, 251,0.04) 71%, rgba(251, 251, 251,0.04) 100%),linear-gradient(45deg, rgba(255,246,125, 0.22) 0%, rgba(255,246,125, 0.22) 56%,rgba(63,62,62, 0.04) 56%, rgba(63,62,62, 0.04) 67%,rgba(251, 251, 251,0.04) 67%, rgba(251, 251, 251,0.04) 100%),linear-gradient(135deg, rgba(255,246,125, 0.22) 0%, rgba(255,246,125, 0.22) 4%,rgba(63,62,62, 0.04) 4%, rgba(63,62,62, 0.04) 75%,rgba(251, 251, 251,0.04) 75%, rgba(251, 251, 251,0.04) 100%),linear-gradient(90deg, rgb(240,202,0),rgb(240,202,0));
+}
+
+.encabezado-menu{
+    --background:radial-gradient(circle at 20% 14%, rgba(27, 27, 27,0.05) 0%, rgba(27, 27, 27,0.05) 50%,rgba(126, 126, 126,0.05) 50%, rgba(126, 126, 126,0.05) 100%),radial-gradient(circle at 18% 51%, rgba(248, 248, 248,0.05) 0%, rgba(248, 248, 248,0.05) 50%,rgba(26, 26, 26,0.05) 50%, rgba(26, 26, 26,0.05) 100%),radial-gradient(circle at 29% 38%, rgba(160, 160, 160,0.05) 0%, rgba(160, 160, 160,0.05) 50%,rgba(212, 212, 212,0.05) 50%, rgba(212, 212, 212,0.05) 100%),linear-gradient(90deg, rgb(240,202,0),rgb(255,249,155));
+}
+
+ion-fab-button {
+    --border-radius: 8px;
+    --border-style: solid;
+    --border-width: 2px;
+    --box-shadow: 4px 4px;
+}
+
+.borde-cafe {
+    border: 1px solid #a4721e;
+    border-radius: 10px;
+}
+
+
+ion-card {
+    border: 1.5px solid #a4721e;
+
+    ion-card-header {
+        border-bottom: 1.5px solid #a4721e;
+        background:  linear-gradient(309deg, rgba(77, 77, 77,0.05) 0%, rgba(77, 77, 77,0.05) 25%,rgba(42, 42, 42,0.05) 25%, rgba(42, 42, 42,0.05) 38%,rgba(223, 223, 223,0.05) 38%, rgba(223, 223, 223,0.05) 75%,rgba(36, 36, 36,0.05) 75%, rgba(36, 36, 36,0.05) 100%),linear-gradient(137deg, rgba(128, 128, 128,0.05) 0%, rgba(128, 128, 128,0.05) 34%,rgba(212, 212, 212,0.05) 34%, rgba(212, 212, 212,0.05) 57%,rgba(25, 25, 25,0.05) 57%, rgba(25, 25, 25,0.05) 89%,rgba(135, 135, 135,0.05) 89%, rgba(135, 135, 135,0.05) 100%),linear-gradient(334deg, rgba(55, 55, 55,0.05) 0%, rgba(55, 55, 55,0.05) 14%,rgba(209, 209, 209,0.05) 14%, rgba(209, 209, 209,0.05) 60%,rgba(245, 245, 245,0.05) 60%, rgba(245, 245, 245,0.05) 69%,rgba(164, 164, 164,0.05) 69%, rgba(164, 164, 164,0.05) 100%),linear-gradient(342deg, rgba(248, 248, 248,0.05) 0%, rgba(248, 248, 248,0.05) 32%,rgba(148, 148, 148,0.05) 32%, rgba(148, 148, 148,0.05) 35%,rgba(202, 202, 202,0.05) 35%, rgba(202, 202, 202,0.05) 51%,rgba(181, 181, 181,0.05) 51%, rgba(181, 181, 181,0.05) 100%),linear-gradient(185deg, rgb(240,202,0),rgb(240,202,0));
+    }
+
+    ion-card-subtitle {
+        color: #000000;
+        text-align: center;
+    }
+}
+
+.fondo-encabezados{
+    background: linear-gradient(45deg, rgba(255,246,125, 0.22) 0%, rgba(255,246,125, 0.22) 50%,rgba(63,62,62, 0.04) 50%, rgba(63,62,62, 0.04) 71%,rgba(251, 251, 251,0.04) 71%, rgba(251, 251, 251,0.04) 100%),linear-gradient(45deg, rgba(255,246,125, 0.22) 0%, rgba(255,246,125, 0.22) 56%,rgba(63,62,62, 0.04) 56%, rgba(63,62,62, 0.04) 67%,rgba(251, 251, 251,0.04) 67%, rgba(251, 251, 251,0.04) 100%),linear-gradient(135deg, rgba(255,246,125, 0.22) 0%, rgba(255,246,125, 0.22) 4%,rgba(63,62,62, 0.04) 4%, rgba(63,62,62, 0.04) 75%,rgba(251, 251, 251,0.04) 75%, rgba(251, 251, 251,0.04) 100%),linear-gradient(90deg, rgb(240,202,0),rgb(240,202,0));
+    border: 1px solid #a4721e; 
+}
+
+.tit-encabezados{
+    background: linear-gradient(45deg, rgba(255,246,125, 0.22) 0%, rgba(255,246,125, 0.22) 50%,rgba(63,62,62, 0.04) 50%, rgba(63,62,62, 0.04) 71%,rgba(251, 251, 251,0.04) 71%, rgba(251, 251, 251,0.04) 100%),linear-gradient(45deg, rgba(255,246,125, 0.22) 0%, rgba(255,246,125, 0.22) 56%,rgba(63,62,62, 0.04) 56%, rgba(63,62,62, 0.04) 67%,rgba(251, 251, 251,0.04) 67%, rgba(251, 251, 251,0.04) 100%),linear-gradient(135deg, rgba(255,246,125, 0.22) 0%, rgba(255,246,125, 0.22) 4%,rgba(63,62,62, 0.04) 4%, rgba(63,62,62, 0.04) 75%,rgba(251, 251, 251,0.04) 75%, rgba(251, 251, 251,0.04) 100%),linear-gradient(90deg, rgb(240,202,0),rgb(240,202,0));
+    border: 1px solid #a4721e; 
+    margin-top: 15px;
+    text-align: center;
+}
+
+.grilla-listaclientes {
+    border: 1px solid #a4721e; 
+}
+
+.grilla-listaPorc {
+    border: 1px solid #2c2c2c; 
+}
+
+ion-searchbar.custom {
+    border:1px solid;
+    border-color: #a4721e;
+    border-radius: 250px;
+    --background: #ffffff;
+    --color: #a4721e;
+    --placeholder-color: #a4721e;
+    --icon-color: #a4721e;
+    --clear-button-color: #a4721e;
+    --border-radius: 50px;
+    --box-shadow: 0px 0px 0px 3px #a4721e;
+}
+
+ion-grid.no-padding-margin {
+    padding: 0;
+    margin: 0;
+}

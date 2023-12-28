@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-title>
+      <ion-icon slot="start" src="../../assets/icons/warehouse.svg"></ion-icon>
+      Detalle de Galpon
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" name="id-card"></ion-icon>
+        Id:
+      </ion-label>
+      <ion-label>{{ galpon.id }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/registro_granjas.svg"></ion-icon>
+        Nombre Galpon:
+      </ion-label>
+      <ion-label>{{ galpon.nombre }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/tipo_galpon.svg"></ion-icon>
+        Tipo Galpon:
+      </ion-label>
+      <ion-label>{{ galpon.tipogalpon }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/largo.svg"></ion-icon>
+        Largo:
+      </ion-label>
+      <ion-label>{{ galpon.largo }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/largo.svg"></ion-icon>
+        Ancho:
+      </ion-label>
+      <ion-label>{{ galpon.ancho }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/area.svg"></ion-icon>
+        Area (m2):
+      </ion-label>
+      <ion-label>{{ area }}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

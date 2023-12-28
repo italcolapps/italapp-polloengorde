@@ -1,0 +1,134 @@
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-title>
+      <ion-icon slot="start" src="../../assets/icons/info_productiva.svg"></ion-icon>
+      Detalle de Seguimiento de Semanal
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" name="id-card"></ion-icon>
+        Id:
+      </ion-label>
+      <ion-label>{{ info.id }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/calendar.svg"></ion-icon>
+        Edad:
+      </ion-label>
+      <ion-label>{{ info.edadDias }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/weight.svg"></ion-icon>
+        Peso Promedio:
+      </ion-label>
+      <ion-label>{{ info.pesoPromedio }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/fase_alimentacion.svg"></ion-icon>
+        Consumo Acumulado:
+      </ion-label>
+      <ion-label>{{ info.consumoAcumulado }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/fase_alimentacion.svg"></ion-icon>
+        Fase Alimentacion:
+      </ion-label>
+      <ion-label>{{ info.faseAlimentacion }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/hen.svg"></ion-icon>
+        Mortalidad Acumulada:
+      </ion-label>
+      <ion-label>{{ info.mortalidadAcumulada }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/hen.svg"></ion-icon>
+        Seleccion Acumulada:
+      </ion-label>
+      <ion-label>{{ info.seleccionAcumulada }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/food.svg"></ion-icon>
+        Marca Alimento:
+      </ion-label>
+      <ion-label>{{ info.marcaAlimento }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/nombre.svg"></ion-icon>
+        Observaciones:
+      </ion-label>
+      <ion-label>{{ info.observacion }}</ion-label>
+    </ion-item>
+    <ion-card-header class="fondo-encabezados">
+      <ion-card-title>
+        <ion-icon name="stats-chart"></ion-icon>
+        Indicadores Semanales
+      </ion-card-title>
+    </ion-card-header>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/info_productiva.svg"></ion-icon>
+        VPI (Veces Peso Inicial):
+      </ion-label>
+      <ion-label>{{ VPI | number:'1.2-2':'es'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/info_productiva.svg"></ion-icon>
+        Conversion Alimenticia:
+      </ion-label>
+      <ion-label>{{ conversionAlimenticia | number:'1.2-2':'es'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/info_productiva.svg"></ion-icon>
+        Ganancia Durante La Semana:
+      </ion-label>
+      <ion-label>{{ GananciaDuranteSemana | number:'1.2-2':'es'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/info_productiva.svg"></ion-icon>
+        Ganancia Diaria Acumulada:
+      </ion-label>
+      <ion-label>{{ GananciaDiariaAcumulada | number:'1.2-2':'es'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/info_productiva.svg"></ion-icon>
+        % Mortalidad:
+      </ion-label>
+      <ion-label>{{ porcMortalidad | number:'1.2-2':'es'}} %</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/info_productiva.svg"></ion-icon>
+        % Seleccion:
+      </ion-label>
+      <ion-label>{{ porcSeleccion | number:'1.2-2':'es'}} %</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/info_productiva.svg"></ion-icon>
+        % Mortalidad + Seleccion:
+      </ion-label>
+      <ion-label>{{ porcMortalidadSeleccion | number:'1.2-2':'es'}} %</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

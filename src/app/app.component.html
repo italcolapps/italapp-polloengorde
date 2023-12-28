@@ -1,0 +1,89 @@
+<ion-app>
+  <ion-split-pane contentId="main-content" when="true">
+    <ion-menu contentId="main-content" type="overlay">
+      
+      <ion-header>
+        <ion-toolbar>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item class="toolbar">
+              <ion-avatar class="avatar" slot="start">
+                <img src="./assets/img/user_icon.svg" class="user-avatar">
+              </ion-avatar>
+              <div class="user-info-wrapper">
+                <div class="user-info">
+                  <ion-label class="username">{{userName}}</ion-label>
+                  <ion-label class="role"><em>{{rolname}}</em></ion-label>
+                  <!-- <ion-label class="plant"><em>{{planta.nombre}}</em></ion-label> -->
+                </div>
+                <ion-button (click)="signOut()" class="logout-button">
+                  <ion-icon name="log-out"></ion-icon>
+                  Cerrar Sesion
+                </ion-button>
+              </div>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-toolbar>
+      </ion-header>
+      
+      <ion-content class="ion-padding">
+        <ion-item style="margin-top: -10px;" *ngIf="roles.Administrador == getRol() || roles.Gerente_Ventas == getRol() 
+          || roles.Gerente_Zona == getRol()" routerLinkActive="router-link-active" routerLink="/clientes">
+          <ion-label>Clientes</ion-label>
+          <ion-avatar slot="start">
+            <img src="./assets/img/clients_icon.svg"/>
+          </ion-avatar>
+        </ion-item>
+        <ion-item *ngIf="roles.Administrador == getRol() || roles.Gerente_Ventas == getRol() || roles.Asistente_Ventas == getRol()" 
+        routerLinkActive="router-link-active" routerLink="/usuarios">
+          <ion-label>Gestion de Usuarios</ion-label>
+          <ion-avatar slot="start">
+            <img src="./assets/img/users_icon.svg"/>
+          </ion-avatar>
+        </ion-item>
+        <ion-item *ngIf="roles.Administrador == getRol() || roles.Gerente_Ventas == getRol() || roles.Gerente_Zona == getRol() || roles.Cliente == getRol()" 
+        routerLinkActive="router-link-active" routerLink="/granjas">
+          <ion-label>Granjas</ion-label>
+          <ion-avatar slot="start">
+            <img src="./assets/img/farms_icon.svg"/>
+          </ion-avatar>
+        </ion-item>
+        <ion-item *ngIf="roles.Administrador == getRol() || roles.Gerente_Ventas == getRol() || roles.Gerente_Zona == getRol() || roles.Cliente == getRol()" 
+        routerLinkActive="router-link-active" routerLink="/galpones">
+          <ion-label>Galpones</ion-label>
+          <ion-avatar slot="start">
+            <img src="./assets/img/galpones_icon.svg"/>
+          </ion-avatar>
+        </ion-item>
+        <ion-item *ngIf="roles.Administrador == getRol() || roles.Gerente_Ventas == getRol() || roles.Gerente_Zona == getRol() || roles.Cliente == getRol()" 
+        routerLinkActive="router-link-active" routerLink="/lotes">
+          <ion-label>Lotes</ion-label>
+          <ion-avatar slot="start">
+            <img src="./assets/img/lotes_icon.svg"/>
+          </ion-avatar>
+        </ion-item>
+        <ion-item *ngIf="roles.Administrador == getRol() || roles.Gerente_Ventas == getRol() || roles.Gerente_Zona == getRol() || roles.Cliente == getRol()" 
+        routerLinkActive="router-link-active" routerLink="/informacion-productiva">
+          <ion-label><strong>Seguimiento Semanal</strong></ion-label>
+          <ion-avatar slot="start">
+            <img src="./assets/img/informacionproductiva_icon.svg"/>
+          </ion-avatar>
+        </ion-item>
+        <ion-item *ngIf="roles.Administrador == getRol() || roles.Gerente_Ventas == getRol() || roles.Gerente_Zona == getRol() || roles.Cliente == getRol()" 
+        routerLinkActive="router-link-active" routerLink="/liquidaciones">
+          <ion-label><strong>Liquidaciones</strong></ion-label>
+          <ion-avatar slot="start">
+            <img src="./assets/img/liquidaciones_icon.svg"/>
+          </ion-avatar>
+        </ion-item>
+        <ion-item *ngIf="roles.Administrador == getRol() || roles.Gerente_Ventas == getRol() || roles.Gerente_Zona == getRol() || roles.Cliente == getRol() || roles.Asistente_Ventas == getRol()"  
+        routerLinkActive="router-link-active" routerLink="/reportes">
+          <ion-label><strong>Reportes</strong></ion-label>
+          <ion-avatar slot="start">
+            <img src="./assets/img/reports_icon.svg"/>
+          </ion-avatar>
+        </ion-item>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

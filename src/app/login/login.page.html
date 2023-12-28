@@ -1,0 +1,53 @@
+<ion-header>
+  <div class="login-header ion-padding">
+    <img class="ion-justify-content-center logo-img" alt="Silhouette of mountains" src="./assets/icon/icon-192x192.png"/>
+    <div heading-column-lr>
+      <h1 big-heading><strong>ItalApp Pollo Engorde</strong></h1>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid fixed>
+    <ion-row class="ion-align-self-center">
+      <ion-col size="12">
+        <div class="center">
+
+          <form [formGroup]="loginForm">
+          <ion-row class="ion-justify-content-center">
+            <ion-col size="12">
+              <ion-item fill="solid" class="ion-margin-bottom">
+                <ion-label color="pollos-cafe" position="floating">
+                  <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+                  Email
+                </ion-label>
+                <ion-input formControlName="email" type="email" placeholder="Ingrese E-mail"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-center">
+            <ion-col size="12">
+              <ion-item>
+                <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" name="key-outline"></ion-icon>
+                  Password
+                </ion-label>
+                <ion-input formControlName="password" type="password" placeholder="Ingrese Contraseña"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-center">
+            <ion-col size="12">
+              <ion-button color="italapp-pollos" expand="block" (click)="loginUser()">
+                <ion-icon name="arrow-redo-outline"></ion-icon>
+                Ingresar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="2.66666in" height="2.66666in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 2667 2667" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   
+    .fil1 {fill:#333333}
+    .fil0 {fill:#D7D7D7}
+    .fil2 {fill:white}
+   
+  </style>
+ </defs>
+ <g id="_302964016">
+  <circle class="fil0" cx="1390" cy="1387" r="1277" id="id_101" style="fill: rgb(255, 255, 255);"></circle>
+  <circle class="fil1" cx="1277" cy="1279" r="1277" id="id_102" style="fill: rgb(240, 202, 0);"></circle>
+ </g>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+  <path class="fil2" d="M848 1129c-291,0 -291,-219 0,-219 291,0 291,219 0,219zm1298 875l-1626 0c-53,0 -53,-80 0,-80l116 0c-4,-9 -6,-19 -6,-30l0 -323c57,36 152,69 218,69 66,0 161,-33 218,-69l0 322c0,11 -2,21 -7,31l62 0c-4,-9 -6,-19 -6,-30l0 -373c56,37 151,69 218,69 66,0 161,-33 218,-69l0 372c0,11 -3,21 -7,31l63 0c-4,-9 -6,-19 -6,-30l0 -327c56,36 149,67 215,67 67,0 163,-33 221,-70l0 329c0,11 -3,21 -7,31l116 0c53,0 53,80 0,80zm-545 -482l0 -416c93,85 343,84 436,0l0 413c-51,35 -162,76 -221,76 -58,0 -165,-39 -215,-73zm218 -393c-292,0 -292,-219 0,-219 291,0 290,219 0,219zm-704 346l0 -279c56,36 149,67 215,67 67,0 163,-33 221,-70l0 283c-54,35 -160,75 -218,75 -59,0 -171,-41 -218,-76zm0 -324l0 -292c93,85 343,84 436,0l0 289c-51,35 -162,76 -221,76 -58,0 -165,-39 -215,-73zm218 -269c-291,0 -293,-219 0,-219 291,0 291,219 0,219zm-703 644l0 -420c94,85 344,84 436,0l0 420c-54,35 -159,75 -218,75 -59,0 -164,-40 -218,-75z" id="id_103" style="fill: rgb(164, 114, 30);"></path>
+ </g>
+</svg>

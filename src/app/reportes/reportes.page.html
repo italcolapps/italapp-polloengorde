@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Reportes Pollo Engorde
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content >
+  <ion-card color= "light">
+        <ion-card-header class="encabezado"  color="primary">
+          <ion-card-title>Reportes Generales</ion-card-title>
+        </ion-card-header>
+          <ion-item detail="true" [routerLink]="['/reporte-infosemanal']"  >
+            <ion-icon color= "pollos-cafe" slot="start" src="../../assets/icons/info_productiva.svg"></ion-icon>
+            <ion-label color= "pollos-cafe">Reporte Seguimiento Semanal</ion-label>
+          </ion-item>
+          <ion-item detail="true" [routerLink]="['/reporte-liquidaciones']"  >
+            <ion-icon color= "pollos-cafe" slot="start" src="../../assets/icons/liquidaciones.svg"></ion-icon>
+            <ion-label color= "pollos-cafe">Reporte Liquidaciones</ion-label>
+          </ion-item>
+    </ion-card>
+</ion-content>
+

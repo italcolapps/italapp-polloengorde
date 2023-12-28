@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-title>
+      Detalle del Usuario
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" name="calendar"></ion-icon>
+        Fecha de Registro:
+      </ion-label>
+      <ion-label>{{ usuario.fechaRegistro | date:'dd/MM/yyyy'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" name="id-card"></ion-icon>
+        Id:
+      </ion-label>
+      <ion-label>{{ usuario.id }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" name="id-card"></ion-icon>
+        Identificacion:
+      </ion-label>
+      <ion-label>{{ usuario.documento }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/nombre.svg"></ion-icon>
+        Nombre:
+      </ion-label>
+      <ion-label>{{usuario.nombre}}&nbsp;{{usuario.apellido}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/rol.svg"></ion-icon>
+        Rol:
+      </ion-label>
+      <ion-label>{{usuario.rolText}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/correo.svg"></ion-icon>
+      Correo:
+      </ion-label>
+      <ion-label>{{usuario.email}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

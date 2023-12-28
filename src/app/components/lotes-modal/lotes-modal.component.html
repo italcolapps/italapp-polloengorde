@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-title>
+      <ion-icon slot="start" src="../../assets/icons/lotes.svg"></ion-icon>
+      Detalle de Lote
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" name="id-card"></ion-icon>
+        Id:
+      </ion-label>
+      <ion-label>{{ lote.id }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" name="id-card"></ion-icon>
+        Codigo Lote:
+      </ion-label>
+      <ion-label>{{ lote.codLote }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/calendar.svg"></ion-icon>
+        Fecha Encasetamiento:
+      </ion-label>
+      <ion-label>{{ lote.fechaRegistroInicio | date:'dd/MM/yyyy' }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/registro_granjas.svg"></ion-icon>
+        Nombre Lote:
+      </ion-label>
+      <ion-label>{{ lote.nombre }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/registro_granjas.svg"></ion-icon>
+        Lote Reproductora:
+      </ion-label>
+      <ion-label>{{ lote.loteReproductora }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/hen.svg"></ion-icon>
+        Linea Genetica:
+      </ion-label>
+      <ion-label>{{ lineaGenetica.nombre }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/gender.svg"></ion-icon>
+        Sexo:
+      </ion-label>
+      <ion-label>{{ sexo.nombre }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/hatchery.svg"></ion-icon>
+        Incubadora:
+      </ion-label>
+      <ion-label>{{ incubadora.nombre }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/number.svg"></ion-icon>
+        Aves Encasetadas:
+      </ion-label>
+      <ion-label>{{ lote.numAvesEncasetadas }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/weight.svg"></ion-icon>
+        Peso Inicial Dia 1 (g):
+      </ion-label>
+      <ion-label>{{ lote.pesoInicial }}</ion-label>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

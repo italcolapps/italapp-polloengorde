@@ -1,0 +1,232 @@
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-title>
+      <ion-icon slot="start" src="../../assets/icons/liquidacion.svg"></ion-icon>
+      Detalle de Liquidacion
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" name="id-card"></ion-icon>
+        Id:
+      </ion-label>
+      <ion-label>{{ liquidacion.id }}</ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-item>
+    <ion-label color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/calendar.svg"></ion-icon>
+      Edad de Sacrificio:
+    </ion-label>
+    <ion-label>{{ liquidacion.edadSacrificio }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/weight.svg"></ion-icon>
+      Peso Promedio:
+    </ion-label>
+    <ion-label>{{ liquidacion.pesoPromedio }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/fase_alimento.svg"></ion-icon>
+      Precio/Kg Alimento (Preinicio):
+    </ion-label>
+    <ion-label>{{ liquidacion.precioAlimentoPreinicio }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/fase_alimento.svg"></ion-icon>
+      Cosumo Acumulado Preinicio:
+    </ion-label>
+    <ion-label>{{ liquidacion.consumoAcumuladoPreinicio }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/food.svg"></ion-icon>
+      Marca Alimento Preinicio:
+    </ion-label>
+    <ion-label text-wrap>{{alimentoPreinicio.nombre}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/fase_alimento.svg"></ion-icon>
+      Precio/Kg Alimento (Inicio):
+    </ion-label>
+    <ion-label>{{ liquidacion.precioAlimentoInicio }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/fase_alimento.svg"></ion-icon>
+      Cosumo Acumulado Inicio:
+    </ion-label>
+    <ion-label>{{ liquidacion.consumoAcumuladoInicio }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/food.svg"></ion-icon>
+      Marca Alimento inicio:
+    </ion-label>
+    <ion-label text-wrap>{{alimentoInicio.nombre}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/fase_alimento.svg"></ion-icon>
+      Precio/Kg Alimento (Engorde):
+    </ion-label>
+    <ion-label>{{ liquidacion.precioAlimentoEngorde }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/fase_alimento.svg"></ion-icon>
+      Cosumo Acumulado Engorde:
+    </ion-label>
+    <ion-label>{{ liquidacion.consumoAcumuladoEngorde }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/food.svg"></ion-icon>
+      Marca Alimento Engorde:
+    </ion-label>
+    <ion-label text-wrap>{{alimentoEngorde.nombre}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/fase_alimento.svg"></ion-icon>
+      Precio Venta del Pollo/Kg:
+    </ion-label>
+    <ion-label>{{ liquidacion.precioVentaPollo }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/hen.svg"></ion-icon>
+      Total Aves Muertas:
+    </ion-label>
+    <ion-label>{{ liquidacion.totalAvesMuertasCiclo }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/hen.svg"></ion-icon>
+      Total Aves Seleccionadas:
+    </ion-label>
+    <ion-label>{{ liquidacion.totalAvesSeleccionCiclo }}</ion-label>
+  </ion-item>
+  <ion-card-header class="fondo-encabezados">
+    <ion-card-title>
+      <ion-icon name="stats-chart"></ion-icon>
+      Indicadores Liquidacion
+    </ion-card-title>
+  </ion-card-header>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/liquidaciones.svg"></ion-icon>
+      Consumo Acumulado Total:
+    </ion-label>
+    <ion-label>{{ consumoAcumTotal }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/liquidaciones.svg"></ion-icon>
+      Conversion Alimenticia:
+    </ion-label>
+    <ion-label>{{ conversionAlimenticia |number:'1.0-2':'es' }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/liquidaciones.svg"></ion-icon>
+      Ganancia Diaria Promedio:
+    </ion-label>
+    <ion-label>{{ gananciaDiariaProm | number:'1.0-2':'es'}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/liquidaciones.svg"></ion-icon>
+      % Mortalidad:
+    </ion-label>
+    <ion-label>{{ porcMortalidad | number:'1.2-2':'es'}} %</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/liquidaciones.svg"></ion-icon>
+      % Seleccion:
+    </ion-label>
+    <ion-label>{{ porcSeleccion | number:'1.2-2':'es'}} %</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/liquidaciones.svg"></ion-icon>
+      % Sobrevivencia:
+    </ion-label>
+    <ion-label>{{ porcSobrevivencia | number:'1.2-2':'es'}} %</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/liquidaciones.svg"></ion-icon>
+      % Mortalidad + Seleccion:
+    </ion-label>
+    <ion-label>{{ porcMortalidadSeleccion | number:'1.2-2':'es'}} %</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/liquidaciones.svg"></ion-icon>
+      Total de Aves Finales:
+    </ion-label>
+    <ion-label>{{ totAvesFinales}} </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/liquidaciones.svg"></ion-icon>
+      Precio Ponderado / Kg Alimento:
+    </ion-label>
+    <ion-label>{{precioPonderado | number:'1.0-0':'es'}} </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/liquidaciones.svg"></ion-icon>
+      Costo de Alimento / Ave:
+    </ion-label>
+    <ion-label> {{costoAlimentoAve | number:'1.0-0':'es'}} </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/liquidaciones.svg"></ion-icon>
+      Costo de Alimento / Kg de Pollo Producido:
+    </ion-label>
+    <ion-label> {{costoAlimentoPolloProducido | number:'1.0-0':'es'}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/liquidaciones.svg"></ion-icon>
+      Ingreso Bruto / Kg de Pollo:
+    </ion-label>
+    <ion-label> {{ingresoBrutoKgPollo | number:'1.0-0':'es'}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/liquidaciones.svg"></ion-icon>
+      Eficiencia Americana:
+    </ion-label>
+    <ion-label>{{ eficienciaAmericana | number:'1.2-2' :'es'}} </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/liquidaciones.svg"></ion-icon>
+      IP:
+    </ion-label>
+    <ion-label> {{ IP | number:'1.2-2' :'es'}} </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label color="pollos-cafe">
+      <ion-icon slot="start" src="../../assets/icons/liquidaciones.svg"></ion-icon>
+      Eficiencia Europea:
+    </ion-label>
+    <ion-label> {{ eficienciaEuropea | number:'1.2-2':'es' }}  </ion-label>
+  </ion-item>
+</ion-content>

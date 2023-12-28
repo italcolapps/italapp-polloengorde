@@ -1,0 +1,36 @@
+.avatar {
+    width: 64px;
+    height: 64px;
+    margin-right: 10px;
+}
+
+.toolbar {
+    
+    align-items: center;
+}
+
+
+
+.user-info-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.username, .role, .plant {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.logout-button {
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 150px;
+    align-self: flex-start; /* Alinea el botón a la izquierda */
+}

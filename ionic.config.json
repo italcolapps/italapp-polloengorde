@@ -1,0 +1,7 @@
+{
+  "name": "italapp-polloengorde",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

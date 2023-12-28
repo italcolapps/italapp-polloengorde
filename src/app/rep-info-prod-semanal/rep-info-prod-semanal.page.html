@@ -1,0 +1,177 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Reportes Información Productiva Semanal
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <ion-row>
+    <ion-col size="12" size-sm="6" size-lg="6">
+      <ion-item  class="borde-cafe">
+        <ion-label color="pollos-cafe" position="fixed">
+          <ion-icon slot="start" src="../../assets/icons/customer.svg"></ion-icon>
+          Cliente:
+        </ion-label>
+          <ion-select interface="popover" placeholder="Seleccionar Cliente" (ionChange)="getGranjas($event)">
+            <ion-select-option *ngFor="let cliente of listaClientes" [value]="cliente.id">{{cliente.nombre}}</ion-select-option>
+          </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12" size-sm="6" size-lg="6">
+      <ion-item class="borde-cafe">
+        <ion-label color="pollos-cafe" position="fixed">
+          <ion-icon slot="start" src="../../assets/icons/registro_granjas.svg"></ion-icon>
+          Granja:
+        </ion-label>
+          <ion-select interface="popover" placeholder="Seleccionar Granja" (ionChange)="getGalpones($event)">
+            <ion-select-option *ngFor="let granja of listaGranjas" [value]="granja.id">{{granja.nombre}}</ion-select-option>
+          </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12" size-sm="6" size-lg="6">
+      <ion-item class="borde-cafe">
+        <ion-label color="pollos-cafe" position="fixed">
+          <ion-icon slot="start" src="../../assets/icons/warehouse.svg"></ion-icon>
+          Galpon:
+        </ion-label>
+          <ion-select interface="popover" placeholder="Seleccionar Galpon" (ionChange)="getLotes($event)">
+            <ion-select-option *ngFor="let galpon of listaGalpones" [value]="galpon.id">{{galpon.nombre}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+    </ion-col>
+    <ion-col size="12" size-sm="6" size-lg="6">
+      <ion-item class="borde-cafe">
+        <ion-label color="pollos-cafe" position="fixed">
+          <ion-icon slot="start" src="../../assets/icons/lotes.svg"></ion-icon>
+          Lote:
+        </ion-label>
+          <ion-select interface="popover" placeholder="Seleccionar Lote" (ionChange)="seleccionarLote($event)">
+            <ion-select-option *ngFor="let lote of listaLotes" [value]="lote.id" text-wrap>
+              {{lote.codLote}}_{{lote.fechaRegistroInicio | date:'ddMMyy'}}_{{lote.nombre}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+    </ion-col>
+  </ion-row>
+
+    <ion-row style="margin-top:10px;">
+      <ion-col class="borde-cafe" size="12" size-sm="6" size-lg="6">
+        <canvas #myChart></canvas>
+      </ion-col>
+      <ion-col class="borde-cafe" size="12" size-sm="6" size-lg="6">
+        <canvas #myChart1></canvas>
+      </ion-col>
+    </ion-row>
+
+    <ion-card style="margin-right: -20px;">
+      <ion-card-header>
+        <ion-card-subtitle>Desempeño Productivo Actual VS Línea Genética</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+
+
+    <ion-row style="margin-top:-20px;">
+      <ion-col size="12" size-sm="6" size-lg="6">
+        <ion-grid style="margin-right: -20px;" scroll-x="true">
+          <ion-row>
+            <ion-col size="4" size-sm="4" size-lg="3" class="fondo-encabezados">Edad</ion-col>
+            <ion-col size="2" size-sm="2" size-lg="2" class="fondo-encabezados">Peso (g)</ion-col>
+            <ion-col size="2" size-sm="2" size-lg="2" class="fondo-encabezados">% Peso</ion-col>
+            <ion-col size="4" size-sm="4" size-lg="5" class="fondo-encabezados">Consumo Acum (g)</ion-col>
+          </ion-row>
+          <ion-row *ngFor="let lista of listaRepDesVsGuia">
+            <ion-col size="4" size-sm="4" size-lg="3" class="grilla-listaPorc">{{lista.semanaSeguimiento}}</ion-col>
+            <ion-col size="2" size-sm="2" size-lg="2" class="grilla-listaPorc">{{lista.pesoPromedio | number:'1.0-0':'es'}}</ion-col>
+            <ion-col size="2" size-sm="2" size-lg="2" class="grilla-listaPorc" [ngStyle]="{'background': lista.porcPeso === 0 ? 'white' : (lista.porcPeso <= 0.00 ? 'rgba(192, 80, 77, 0.5)' : 'rgba(154, 186, 91, 0.5)')}">
+              {{lista.porcPeso | number:'1.0-1':'es'}} %</ion-col>
+            <ion-col size="4" size-sm="4" size-lg="5" class="grilla-listaPorc">{{lista.consumoAcumulado | number:'1.0-0':'es'}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="4" size-sm="4" size-lg="3" class="fondo-encabezados"><ion-label>VPI Semana 1</ion-label></ion-col>
+            <ion-col size="2" size-sm="2" size-lg="2" class="grilla-listaPorc"><ion-label>{{listaRepDesVsGuia[0]?.vpIsemanaUno  | number:'1.0-2':'es'}}</ion-label></ion-col>
+            <ion-col size="2" size-sm="2" size-lg="2" class="grilla-listaPorc" [ngStyle]="{'background': listaRepDesVsGuia[0]?.porcenVPIsemanaUno === 0 ? 'white' : (listaRepDesVsGuia[0]?.porcenVPIsemanaUno < 0.00 ? 'rgba(192, 80, 77, 0.5)' : 'rgba(154, 186, 91, 0.5)')}">
+              <ion-label>{{listaRepDesVsGuia[0]?.porcenVPIsemanaUno | number:'1.0-1':'es'}} %</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="4" size-sm="4" size-lg="3" class="fondo-encabezados"><ion-label>VPI Semana 2</ion-label></ion-col>
+            <ion-col size="2" size-sm="2" size-lg="2" class="grilla-listaPorc"><ion-label>{{listaRepDesVsGuia[1]?.vpIsemanaDos  | number:'1.0-2':'es'}}</ion-label></ion-col>
+            <ion-col size="2" size-sm="2" size-lg="2" class="grilla-listaPorc" [ngStyle]="{'background': listaRepDesVsGuia[1]?.porcenVPIsemanaDos === 0 ? 'white' : (listaRepDesVsGuia[1]?.porcenVPIsemanaDos < 0.00 ? 'rgba(192, 80, 77, 0.5)' : 'rgba(154, 186, 91, 0.5)')}">
+              <ion-label>{{listaRepDesVsGuia[1]?.porcenVPIsemanaDos | number:'1.0-1':'es'}} %</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+      <ion-col no-padding no-margin size="12" size-sm="6" size-lg="6">
+        <ion-grid style="margin-right: -20px;" scroll-x="true">
+          <ion-row>
+            <ion-col size="4" size-sm="4" size-lg="4" class="fondo-encabezados">% Consumo</ion-col>
+            <ion-col size="2" size-sm="2" size-lg="2" class="fondo-encabezados">GAD</ion-col>
+            <ion-col size="2" size-sm="2" size-lg="2" class="fondo-encabezados">%GAD</ion-col>
+            <ion-col size="2" size-sm="2" size-lg="2" class="fondo-encabezados">CA</ion-col>
+            <ion-col size="2" size-sm="2" size-lg="2" class="fondo-encabezados">% CA</ion-col>
+          </ion-row>
+          <ion-row *ngFor="let lista of listaRepDesVsGuia">
+            <ion-col size="4" size-sm="4" size-lg="4" class="grilla-listaPorc" [ngStyle]="{'background': lista.porcConsumo === 0 ? 'white' : (lista.porcConsumo < 0.000 ? 'rgba(192, 80, 77, 0.5)' : 'rgba(154, 186, 91, 0.5)')}">
+              {{lista.porcConsumo | number:'1.0-1':'es'}} %</ion-col>
+              <ion-col size="2" size-sm="2" size-lg="2" class="grilla-listaPorc">{{lista.gananciaDiariaAcumulada | number:'1.0-0':'es'}}</ion-col>
+              <ion-col size="2" size-sm="2" size-lg="2" class="grilla-listaPorc" [ngStyle]="{'background': lista.porcenGananciaDiariaAcumulada === 0 ? 'white' : (lista.porcenGananciaDiariaAcumulada < 0.00 ? 'rgba(192, 80, 77, 0.5)' : 'rgba(154, 186, 91, 0.5)')}">
+                {{lista.porcenGananciaDiariaAcumulada | number:'1.0-1':'es'}} %</ion-col>
+            <ion-col size="2" size-sm="2" size-lg="2" class="grilla-listaPorc">{{lista.conversionAnimal | number:'1.0-2':'es'}}</ion-col>
+            <ion-col size="2" size-sm="2" size-lg="2" class="grilla-listaPorc"  [ngStyle]="{'background': lista.porcenConversionAnimal == 0 ? 'white' : (lista.porcenConversionAnimal > 0.00 ? 'rgba(192, 80, 77, 0.5)' : 'rgba(154, 186, 91, 0.5)')}">
+              {{lista.porcenConversionAnimal | number:'1.0-1':'es'}} %</ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+ 
+    <ion-card style="margin-right: -15px; margin-left: -15px;">
+      <ion-card-header>
+        <ion-card-subtitle>Desempeño Lote Actual Vs Historicos</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+    <ion-row style="margin-top:-10px;">
+      <ion-col class="borde-cafe" size="12" size-sm="6" size-lg="6">
+        <canvas id="chartDesempHistS1"></canvas>
+      </ion-col>
+      <ion-col class="borde-cafe" size="12" size-sm="6" size-lg="6">
+        <canvas id="chartDesempHistS2"></canvas>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top:0px;">
+      <ion-col class="borde-cafe" size="12" size-sm="6" size-lg="6">
+        <canvas id="chartDesempHistS3"></canvas>
+      </ion-col>
+      <ion-col class="borde-cafe" size="12" size-sm="6" size-lg="6">
+        <canvas id="chartDesempHistS4"></canvas>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top:0px;">
+      <ion-col class="borde-cafe" size="12" size-sm="6" size-lg="6">
+        <canvas id="chartDesempHistS5"></canvas>
+      </ion-col>
+      <ion-col class="borde-cafe" size="12" size-sm="6" size-lg="6">
+        <canvas id="chartDesempHistS6"></canvas>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-top:0px;">
+      <ion-col class="borde-cafe" size="12" size-sm="6" size-lg="6">
+        <canvas id="chartDesempHistS7"></canvas>
+      </ion-col>
+      <ion-col class="borde-cafe" size="12" size-sm="6" size-lg="6">
+        <canvas id="chartDesempHistS8"></canvas>
+      </ion-col>
+    </ion-row>
+
+    
+
+
+  
+</ion-content>

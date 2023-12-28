@@ -1,0 +1,214 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Galpones
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-segment [(ngModel)]="segmentValue" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="listado_galpones">
+      <ion-label>Listado de Galpones</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="registro_galpones">
+      <ion-label>Registrar Galpones</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  
+  <ion-list *ngIf="segmentValue === 'listado_galpones'">
+    <ion-row>
+      <ion-col size="6" size-sm="6" size-lg="6">
+        <ion-item class="borde-cafe">
+          <ion-label color="pollos-cafe" position="fixed">
+            <ion-icon slot="start" src="../../assets/icons/customer.svg"></ion-icon>
+            Cliente:
+          </ion-label>
+            <ion-select interface="popover" placeholder="Seleccionar Cliente" (ionChange)="getGranjas($event)">
+              <ion-select-option *ngFor="let cliente of listaClientes" [value]="cliente.id">{{cliente.nombre}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6" size-sm="6" size-lg="6">
+        <ion-item class="borde-cafe">
+          <ion-label color="pollos-cafe" position="fixed">
+            <ion-icon slot="start" src="../../assets/icons/registro_granjas.svg"></ion-icon>
+            Granja:
+          </ion-label>
+            <ion-select interface="popover" placeholder="Seleccionar Granja" (ionChange)="getGalpones($event)">
+              <ion-select-option *ngFor="let granja of listaGranjas" [value]="granja.id">{{granja.nombre}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-searchbar showCancelButton="focus" class="custom" [(ngModel)]="searchTerm" (ionChange)="handleChange($event)"></ion-searchbar>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2" size-sm="2" size-lg="2" class="fondo-encabezados">
+          <ion-label>
+            Id
+            <ion-icon name="filter-outline" color="primary" (click)="sortBy('id')"></ion-icon>
+          </ion-label>
+        </ion-col>
+        <ion-col size="4" size-sm="4" size-lg="4" class="fondo-encabezados">
+          <ion-label>
+            Nombre Galpon
+            <ion-icon name="filter-outline" color="primary" (click)="sortBy('nombre')"></ion-icon>
+          </ion-label>
+        </ion-col>
+        <ion-col size="4" size-sm="4" size-lg="4" class="fondo-encabezados">
+          <ion-label>
+            Tipo Galpon
+            <ion-icon name="filter-outline" color="primary" (click)="sortBy('tipogalpon')"></ion-icon>
+          </ion-label>
+        </ion-col>
+        <ion-col size="2" size-sm="2" size-lg="2" class="fondo-encabezados">
+          <ion-label>
+          </ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let galpon of listaGalpones">
+        <ion-col size="2" size-sm="2" size-lg="2" class="grilla-listaclientes">
+          <ion-label>{{galpon.id}}</ion-label>
+        </ion-col>
+        <ion-col size="4" size-sm="4" size-lg="4" class="grilla-listaclientes">
+          <ion-label>{{galpon.nombre}}</ion-label>
+        </ion-col>
+        <ion-col size="4" size-sm="4" size-lg="4" class="grilla-listaclientes">
+          <ion-label>{{galpon.tipogalpon}}</ion-label>
+        </ion-col>
+        
+        <ion-col size="2" size-sm="2" size-lg="2" class="grilla-listaclientes">
+          <ion-button class="botongrilla" size="small" (click)="MostrarDatosGalpon(galpon.id)">
+            <ion-icon name="create-sharp"></ion-icon>
+          </ion-button>
+          <ion-button class="botongrilla" size="small" (click)="MostrarModalGalpon(galpon.id)">
+            <ion-icon src="../../assets/icons/warehouse.svg"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+  </ion-list>
+
+  <ion-list *ngIf="segmentValue === 'registro_galpones'">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-label>
+            <ion-icon slot="start" src="../../assets/icons/warehouse.svg"></ion-icon>
+            Registro de Galpones
+          </ion-label>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <form [formGroup]="GalponesForm">
+        <ion-row>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/customer.svg"></ion-icon>
+                Cliente:
+              </ion-label>
+              <ion-select interface="popover" placeholder="Seleccionar Clientes" (ionChange)="getGranjas($event)">
+                <ion-select-option *ngFor="let cliente of listaClientes" [value]="cliente.id">{{cliente.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/farm.svg"></ion-icon>
+                Granja:
+              </ion-label>
+              <ion-select formControlName="idGranja" interface="popover" placeholder="Seleccionar Granja">
+                <ion-select-option *ngFor="let granja of listaGranjas" [value]="granja.id">{{granja.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/nombre.svg"></ion-icon>
+                Nombre Galpon:
+              </ion-label>
+              <ion-input formControlName="nombre" type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/tipo_galpon.svg"></ion-icon>
+                Tipo Galpon:
+              </ion-label>
+              <ion-select formControlName="idTipoGalpon">
+                <ion-select-option *ngFor="let item of listaTipoGalpon" [value]="item.id">{{item.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/largo.svg"></ion-icon>
+                Largo (metros):
+              </ion-label>
+              <ion-input formControlName="largo" type="number"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/ancho.svg"></ion-icon>
+                Ancho (metros):
+              </ion-label>
+              <ion-input formControlName="ancho" type="number"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/area.svg"></ion-icon>
+                Area (m2):
+              </ion-label>
+              <ion-input readonly type="number" [value]="area"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <br>
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col class="ion-align-self-center" size="4">
+              <ion-fab-button color="italapp-pollos" (click)="goBack()">
+                <ion-icon src="../../assets/icons/back.svg"></ion-icon>
+              </ion-fab-button>
+            </ion-col>
+            <ion-col class="ion-align-self-center" size="4">
+              <ion-fab-button color="italapp-pollos" [disabled]="!GalponesForm.valid" (click)="SaveOrUpdate()">
+                <ion-icon src="../../assets/icons/save.svg"></ion-icon>
+              </ion-fab-button>
+            </ion-col>
+            <ion-col class="ion-align-self-center" size="4">
+              <ion-fab-button color="italapp-pollos" (click)="resetForm()">
+                <ion-icon src="../../assets/icons/reset.svg"></ion-icon>
+              </ion-fab-button>
+            </ion-col>
+          </ion-row>
+    
+          <ion-row>
+            <ion-col class="ion-align-self-center" size="4"><ion-note color="dark">Regresar</ion-note></ion-col>
+            <ion-col class="ion-align-self-center" size="4"><ion-note color="dark">Guardar</ion-note></ion-col>
+            <ion-col class="ion-align-self-center" size="4"><ion-note color="dark">Limpiar</ion-note></ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>

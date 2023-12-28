@@ -1,0 +1,390 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Liquidaciones
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-segment [(ngModel)]="segmentValue" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="listado_liquidaciones">
+      <ion-label>Consulta de Liquidaciones</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="registro_liquidaciones">
+      <ion-label>Registrar de Liquidaciones</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-list *ngIf="segmentValue === 'listado_liquidaciones'">
+    <ion-row>
+      <ion-col size="12" size-sm="6" size-lg="6">
+        <ion-item  class="borde-cafe">
+          <ion-label color="pollos-cafe" position="fixed">
+            <ion-icon slot="start" src="../../assets/icons/customer.svg"></ion-icon>
+            Cliente:
+          </ion-label>
+            <ion-select interface="popover" placeholder="Seleccionar Cliente" (ionChange)="getGranjas($event)">
+              <ion-select-option *ngFor="let cliente of listaClientes" [value]="cliente.id">{{cliente.nombre}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" size-sm="6" size-lg="6">
+        <ion-item class="borde-cafe">
+          <ion-label color="pollos-cafe" position="fixed">
+            <ion-icon slot="start" src="../../assets/icons/registro_granjas.svg"></ion-icon>
+            Granja:
+          </ion-label>
+            <ion-select interface="popover" placeholder="Seleccionar Granja" (ionChange)="getGalpones($event)">
+              <ion-select-option *ngFor="let granja of listaGranjas" [value]="granja.id">{{granja.nombre}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" size-sm="6" size-lg="6">
+        <ion-item class="borde-cafe">
+          <ion-label color="pollos-cafe" position="fixed">
+            <ion-icon slot="start" src="../../assets/icons/warehouse.svg"></ion-icon>
+            Galpon:
+          </ion-label>
+            <ion-select interface="popover" placeholder="Seleccionar Galpon" (ionChange)="getLotes($event)">
+              <ion-select-option *ngFor="let galpon of listaGalpones" [value]="galpon.id">{{galpon.nombre}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+      </ion-col>
+      <ion-col size="12" size-sm="6" size-lg="6">
+        <ion-item class="borde-cafe">
+          <ion-label color="pollos-cafe" position="fixed">
+            <ion-icon slot="start" src="../../assets/icons/lotes.svg"></ion-icon>
+            Lote:
+          </ion-label>
+            <ion-select interface="popover" placeholder="Seleccionar Lote" (ionChange)="getListaLiquidaciones($event)">
+              <ion-select-option *ngFor="let lote of listaLotes" [value]="lote.id">{{lote.codLote}}_{{lote.fechaRegistroInicio | date:'ddMMyy'}}_{{lote.nombre}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-searchbar showCancelButton="focus" class="custom" [(ngModel)]="searchTerm" (ionChange)="handleChange($event)"></ion-searchbar>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2" size-sm="2" size-lg="2" class="fondo-encabezados">
+          <ion-label>
+            Edad Sacrificio
+            <ion-icon name="filter-outline" color="primary" (click)="sortBy('edad_sacrificio')"></ion-icon>
+          </ion-label>
+        </ion-col>
+        <ion-col size="2" size-sm="2" size-lg="2" class="fondo-encabezados">
+          <ion-label>
+            Peso Promedio
+            <ion-icon name="filter-outline" color="primary" (click)="sortBy('peso_promedio')"></ion-icon>
+          </ion-label>
+        </ion-col>
+        <ion-col size="3" size-sm="3" size-lg="3" class="fondo-encabezados">
+          <ion-label>
+            Aves Seleccionadas
+            <ion-icon name="filter-outline" color="primary" (click)="sortBy('totalAvesMuertasCiclo')"></ion-icon>
+          </ion-label>
+        </ion-col>
+        <ion-col size="3" size-sm="3" size-lg="3" class="fondo-encabezados">
+          <ion-label>
+            Aves Muertas
+            <ion-icon name="filter-outline" color="primary" (click)="sortBy('totalAvesSeleccionCiclo')"></ion-icon>
+          </ion-label>
+        </ion-col>
+        <ion-col size="2" size-sm="2" size-lg="2" class="fondo-encabezados">
+          <ion-label>
+          </ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let liq of listaLiquidaciones">
+        <ion-col size="2" size-sm="2" size-lg="2" class="grilla-listaclientes">
+          <ion-label>{{liq.edadSacrificio}} Dias</ion-label>
+        </ion-col>
+        <ion-col size="2" size-sm="2" size-lg="2" class="grilla-listaclientes">
+          <ion-label>{{liq.pesoPromedio}}</ion-label>
+        </ion-col>
+        <ion-col size="3" size-sm="3" size-lg="3" class="grilla-listaclientes">
+          <ion-label>{{liq.totalAvesSeleccionCiclo}}</ion-label>
+        </ion-col>
+        <ion-col size="3" size-sm="3" size-lg="3" class="grilla-listaclientes">
+          <ion-label>{{liq.totalAvesMuertasCiclo}}</ion-label>
+        </ion-col>
+        
+        <ion-col size="2" size-sm="2" size-lg="2" class="grilla-listaclientes">
+          <ion-button class="botongrilla" size="small">
+            <ion-icon name="create-sharp"></ion-icon>
+          </ion-button>
+          <ion-button class="botongrilla" size="small" (click)="MostrarModalLiquidacion(liq.id, liq.idLote)">
+            <ion-icon src="../../assets/icons/liquidaciones.svg"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+  <ion-list *ngIf="segmentValue === 'registro_liquidaciones'">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-label>
+            <ion-icon slot="start" src="../../assets/icons/liquidaciones.svg"></ion-icon>
+            Registro de Liquidaciones
+          </ion-label>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <form [formGroup]="LiquidacionesForm">
+        <ion-row>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/customer.svg"></ion-icon>
+                Cliente:
+              </ion-label>
+              <ion-select interface="popover" placeholder="Seleccionar Cliente" (ionChange)="getGranjas($event)">
+                <ion-select-option *ngFor="let cliente of listaClientes" [value]="cliente.id">{{cliente.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/farm.svg"></ion-icon>
+                Granja:
+              </ion-label>
+              <ion-select interface="popover" placeholder="Seleccionar Granja" (ionChange)="getGalpones($event)">
+                <ion-select-option *ngFor="let granja of listaGranjas" [value]="granja.id">{{granja.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/warehouse.svg"></ion-icon>
+                Galpon:
+              </ion-label>
+              <ion-select interface="popover" placeholder="Seleccionar Galpon" (ionChange)="getLotes($event)">
+                <ion-select-option *ngFor="let galpon of listaGalpones" [value]="galpon.id">{{galpon.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/lotes.svg"></ion-icon>
+                Lote:
+              </ion-label>
+              <ion-select formControlName="idLote" interface="popover" placeholder="Seleccionar Lote">
+                <ion-select-option *ngFor="let lote of listaLotes" [value]="lote.id">{{lote.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/calendar.svg"></ion-icon>
+                Edad al Sacrificio:
+              </ion-label>
+              <ion-input formControlName="edadSacrificio" type="number" placeholder="Digite edad en dias"></ion-input>
+              <ion-note slot="error" *ngIf="LiquidacionesForm.get('edadSacrificio').hasError('EdadSacrificioInvalid')">
+                La Edad de Sacrificio Debe estar entre 0 y 60 Dias
+              </ion-note>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/weight.svg"></ion-icon>
+                Peso Promedio:
+              </ion-label>
+              <ion-input formControlName="pesoPromedio" type="number" placeholder="Digite (g/ave)"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/dollar.svg"></ion-icon>
+                Moneda
+              </ion-label>
+              <ion-select formControlName="idMonedaLista">
+                <ion-select-option *ngFor="let moneda of listaTipoMoneda" [value]="moneda.id">{{moneda.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/precio_alimento.svg"></ion-icon>
+                Precio/Kg Alimento (preinicio):
+              </ion-label>
+              <ion-input formControlName="precioAlimentoPreinicio" type="number" placeholder="Digite Precio"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/fase_alimento.svg"></ion-icon>
+                Consumo Acumulado preinicio ave:
+              </ion-label>
+              <ion-input formControlName="consumoAcumuladoPreinicio" type="number" placeholder="Digite valor en gramos"></ion-input>
+              <ion-note slot="error" *ngIf="LiquidacionesForm.get('consumoAcumuladoPreinicio').hasError('PreinicioInvalid')">
+                El Consumo debe estar en un rango de 140 a 350g
+              </ion-note>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/food.svg"></ion-icon>
+                Marca Alimento Preinicio:
+              </ion-label>
+              <ion-select formControlName="idMarcaAlimentoPreinicioLista">
+                <ion-select-option *ngFor="let alimento of listaMarcaAlimento" [value]="alimento.id">{{alimento.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/precio_alimento.svg"></ion-icon>
+                Precio/Kg Alimento (inicio):
+              </ion-label>
+              <ion-input formControlName="precioAlimentoInicio" type="number" placeholder="Digite Precio"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/fase_alimento.svg"></ion-icon>
+                Consumo Acumulado inicio ave:
+              </ion-label>
+              <ion-input formControlName="consumoAcumuladoInicio" type="number" placeholder="Digite valor en gramos"></ion-input>
+              <ion-note slot="error" *ngIf="LiquidacionesForm.get('consumoAcumuladoInicio').hasError('InicioInvalid')">
+                El Consumo debe estar en un rango de 650 a 1600g
+              </ion-note>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/food.svg"></ion-icon>
+                Marca Alimento inicio:
+              </ion-label>
+              <ion-select formControlName="idMarcaAlimentoInicioLista">
+                <ion-select-option *ngFor="let alimento of listaMarcaAlimento" [value]="alimento.id">{{alimento.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/precio_alimento.svg"></ion-icon>
+                Precio/Kg Alimento (engorde):
+              </ion-label>
+              <ion-input formControlName="precioAlimentoEngorde" type="number" placeholder="Digite Precio"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/fase_alimento.svg"></ion-icon>
+                Consumo Acumulado engorde ave:
+              </ion-label>
+              <ion-input formControlName="consumoAcumuladoEngorde" type="number" placeholder="Digite valor en gramos"></ion-input>
+              <ion-note slot="error" *ngIf="LiquidacionesForm.get('consumoAcumuladoEngorde').hasError('EngordeInvalid')">
+                El Consumo debe estar en un rango de 1100 a 6000g
+              </ion-note>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/food.svg"></ion-icon>
+                Marca Alimento engorde:
+              </ion-label>
+              <ion-select formControlName="idMarcaAlimentoEngordeLista">
+                <ion-select-option *ngFor="let alimento of listaMarcaAlimento" [value]="alimento.id">{{alimento.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/precio_alimento.svg"></ion-icon>
+                Precio Venta del Pollo/Kg
+              </ion-label>
+              <ion-input formControlName="precioVentaPollo" type="number" placeholder="Digite Precio"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/hen.svg"></ion-icon>
+                Total Aves Muertas:
+              </ion-label>
+              <ion-input formControlName="totalAvesMuertasCiclo" type="number" placeholder="N° de aves muertas al finalizar ciclo"></ion-input>
+              <ion-note slot="error" *ngIf="LiquidacionesForm.get('totalAvesMuertasCiclo').hasError('numAvesInvalid')">
+                El Total de Aves Muertas no puede ser mayor al numero de Aves Encasetadas
+              </ion-note>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/hen.svg"></ion-icon>
+                Total Aves Seleccionadas:
+              </ion-label>
+              <ion-input formControlName="totalAvesSeleccionCiclo" type="number" placeholder="N° de aves seleccionadas al finalizar ciclo"></ion-input>
+              <ion-note slot="error" *ngIf="LiquidacionesForm.get('totalAvesSeleccionCiclo').hasError('numAvesInvalid')">
+                El Total de Aves Seleccionadas no puede ser mayor al numero de Aves Encasetadas
+              </ion-note>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/nombre.svg"></ion-icon>
+                Observaciones:
+              </ion-label>
+              <ion-input formControlName="observacion" type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <br>
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col class="ion-align-self-center" size="4">
+              <ion-fab-button color="italapp-pollos">
+                <ion-icon src="../../assets/icons/back.svg"></ion-icon>
+              </ion-fab-button>
+            </ion-col>
+            <ion-col class="ion-align-self-center" size="4">
+              <ion-fab-button color="italapp-pollos" [disabled]="!LiquidacionesForm.valid" (click)="SaveOrUpdate()">
+                <ion-icon src="../../assets/icons/save.svg"></ion-icon>
+              </ion-fab-button>
+            </ion-col>
+            <ion-col class="ion-align-self-center" size="4">
+              <ion-fab-button color="italapp-pollos">
+                <ion-icon src="../../assets/icons/reset.svg"></ion-icon>
+              </ion-fab-button>
+            </ion-col>
+          </ion-row>
+    
+          <ion-row>
+            <ion-col class="ion-align-self-center" size="4"><ion-note color="dark">Regresar</ion-note></ion-col>
+            <ion-col class="ion-align-self-center" size="4"><ion-note color="dark">Guardar</ion-note></ion-col>
+            <ion-col class="ion-align-self-center" size="4"><ion-note color="dark">Limpiar</ion-note></ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+</ion-content>

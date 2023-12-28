@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-title>
+      Detalle del Cliente
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" name="id-card"></ion-icon>
+        Id:
+      </ion-label>
+      <ion-label>{{ cliente.id }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/id.svg"></ion-icon>
+        Tipo de Documento:
+      </ion-label>
+      <ion-label>{{ cliente.tipodocumentoText}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/id.svg"></ion-icon>
+        Numero Documento:
+      </ion-label>
+      <ion-label>{{ cliente.numeroDocumento}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/nombre.svg"></ion-icon>
+        Nombre:
+      </ion-label>
+      <ion-label>
+        {{ cliente.nombre }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/correo.svg"></ion-icon>
+        Correo:
+      </ion-label>
+      <ion-label>{{ cliente.email }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/phone.svg"></ion-icon>
+        Telefono:
+      </ion-label>
+      <ion-label>{{ cliente.telefono }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/customer.svg"></ion-icon>
+        Tipo Cliente:
+      </ion-label>
+      <ion-label>{{ cliente.tipoclienteText }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/country.svg"></ion-icon>
+        Pais:
+      </ion-label>
+      <ion-label>{{ cliente.paisText }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/state.svg"></ion-icon>
+        Departamento:
+      </ion-label>
+      <ion-label>{{ cliente.departamentoText }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label color="pollos-cafe">
+        <ion-icon slot="start" src="../../assets/icons/municipio.svg"></ion-icon>
+        Municipio:
+      </ion-label>
+      <ion-label>{{ cliente.municipioText }}</ion-label>
+    </ion-item>
+    <!-- Otros campos del cliente aquí -->
+  </ion-list>
+</ion-content>

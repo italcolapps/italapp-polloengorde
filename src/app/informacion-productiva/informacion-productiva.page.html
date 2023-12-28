@@ -1,0 +1,295 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Informacion Productiva
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-segment [(ngModel)]="segmentValue" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="listado_infoproductiva">
+      <ion-label>Consulta de Informacion Semanal</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="registro_listado_infoproductiva">
+      <ion-label>Registrar Informacion Semanal</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-list *ngIf="segmentValue === 'listado_infoproductiva'">
+    <ion-row>
+      <ion-col size="12" size-sm="6" size-lg="6">
+        <ion-item  class="borde-cafe">
+          <ion-label color="pollos-cafe" position="fixed">
+            <ion-icon slot="start" src="../../assets/icons/customer.svg"></ion-icon>
+            Cliente:
+          </ion-label>
+            <ion-select interface="popover" placeholder="Seleccionar Cliente" (ionChange)="getGranjas($event)">
+              <ion-select-option *ngFor="let cliente of listaClientes" [value]="cliente.id">{{cliente.nombre}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" size-sm="6" size-lg="6">
+        <ion-item class="borde-cafe">
+          <ion-label color="pollos-cafe" position="fixed">
+            <ion-icon slot="start" src="../../assets/icons/registro_granjas.svg"></ion-icon>
+            Granja:
+          </ion-label>
+            <ion-select interface="popover" placeholder="Seleccionar Granja" (ionChange)="getGalpones($event)">
+              <ion-select-option *ngFor="let granja of listaGranjas" [value]="granja.id">{{granja.nombre}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" size-sm="6" size-lg="6">
+        <ion-item class="borde-cafe">
+          <ion-label color="pollos-cafe" position="fixed">
+            <ion-icon slot="start" src="../../assets/icons/warehouse.svg"></ion-icon>
+            Galpon:
+          </ion-label>
+            <ion-select interface="popover" placeholder="Seleccionar Galpon" (ionChange)="getLotes($event)">
+              <ion-select-option *ngFor="let galpon of listaGalpones" [value]="galpon.id">{{galpon.nombre}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+      </ion-col>
+      <ion-col size="12" size-sm="6" size-lg="6">
+        <ion-item class="borde-cafe">
+          <ion-label color="pollos-cafe" position="fixed">
+            <ion-icon slot="start" src="../../assets/icons/lotes.svg"></ion-icon>
+            Lote:
+          </ion-label>
+            <ion-select interface="popover" placeholder="Seleccionar Lote" (ionChange)="getListaInfoProductiva($event)">
+              <ion-select-option *ngFor="let lote of listaLotes" [value]="lote.id" text-wrap>{{lote.codLote}}_{{lote.fechaRegistroInicio | date:'ddMMyy'}}_{{lote.nombre}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-searchbar showCancelButton="focus" class="custom" [(ngModel)]="searchTerm" (ionChange)="handleChange($event)"></ion-searchbar>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2" size-sm="2" size-lg="2" class="fondo-encabezados">
+          <ion-label>
+            Edad
+            <ion-icon name="filter-outline" color="primary" (click)="sortBy('edad')"></ion-icon>
+          </ion-label>
+        </ion-col>
+        <ion-col size="4" size-sm="4" size-lg="4" class="fondo-encabezados">
+          <ion-label>
+            Fase Alimentacion
+            <ion-icon name="filter-outline" color="primary" (click)="sortBy('fase_alimentacion')"></ion-icon>
+          </ion-label>
+        </ion-col>
+        <ion-col size="4" size-sm="4" size-lg="4" class="fondo-encabezados">
+          <ion-label>
+            Marca Alimento
+            <ion-icon name="filter-outline" color="primary" (click)="sortBy('marca_alimento')"></ion-icon>
+          </ion-label>
+        </ion-col>
+        <ion-col size="2" size-sm="2" size-lg="2" class="fondo-encabezados">
+          <ion-label>
+          </ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let info of listaInfoProductiva">
+        <ion-col size="2" size-sm="2" size-lg="2" class="grilla-listaclientes">
+          <ion-label>{{info.semana}}</ion-label>
+        </ion-col>
+        <ion-col size="4" size-sm="4" size-lg="4" class="grilla-listaclientes">
+          <ion-label>{{info.faseAlimentacion}}</ion-label>
+        </ion-col>
+        <ion-col size="4" size-sm="4" size-lg="4" class="grilla-listaclientes">
+          <ion-label>{{info.marcaAlimento}}</ion-label>
+        </ion-col>
+        
+        <ion-col size="2" size-sm="2" size-lg="2" class="grilla-listaclientes">
+          <ion-button class="botongrilla" size="small">
+            <ion-icon name="create-sharp"></ion-icon>
+          </ion-button>
+          <ion-button class="botongrilla" size="small" (click)="MostrarModaInfoProductiva(info.id, info.idLote)">
+            <ion-icon slot="start" src="../../assets/icons/info_productiva.svg"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+  <ion-list *ngIf="segmentValue === 'registro_listado_infoproductiva'">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-label>
+            <ion-icon slot="start" src="../../assets/icons/info_productiva.svg"></ion-icon>
+            Registro de Informacion Semanal
+          </ion-label>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <form [formGroup]="InfoProductivaForm">
+        <ion-row>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/customer.svg"></ion-icon>
+                Cliente:
+              </ion-label>
+              <ion-select interface="popover" placeholder="Seleccionar Cliente" (ionChange)="getGranjas($event)">
+                <ion-select-option *ngFor="let cliente of listaClientes" [value]="cliente.id">{{cliente.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/farm.svg"></ion-icon>
+                Granja:
+              </ion-label>
+              <ion-select interface="popover" placeholder="Seleccionar Granja" (ionChange)="getGalpones($event)">
+                <ion-select-option *ngFor="let granja of listaGranjas" [value]="granja.id">{{granja.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/warehouse.svg"></ion-icon>
+                Galpon:
+              </ion-label>
+              <ion-select interface="popover" placeholder="Seleccionar Galpon" (ionChange)="getLotes($event)">
+                <ion-select-option *ngFor="let galpon of listaGalpones" [value]="galpon.id">{{galpon.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/lotes.svg"></ion-icon>
+                Lote:
+              </ion-label>
+              <ion-select formControlName="idLote" interface="popover" placeholder="Seleccionar Lote">
+                <ion-select-option *ngFor="let lote of listaLotes" [value]="lote.id">{{lote.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/calendar.svg"></ion-icon>
+                Edad:
+              </ion-label>
+              <ion-select formControlName="idSemanaSeguimiento">
+                <ion-select-option *ngFor="let semana of listaSemanas" [value]="semana.id">{{semana.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/weight.svg"></ion-icon>
+                Peso Promedio:
+              </ion-label>
+              <ion-input formControlName="pesoPromedio" type="number" placeholder="Digite (g/ave)"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/weight.svg"></ion-icon>
+                Consumo Acumulado:
+              </ion-label>
+              <ion-input formControlName="consumoAcumulado"  type="number" placeholder="Digite (g/ave)"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/fase_alimentacion.svg"></ion-icon>
+                Fase de Alimentacion:
+              </ion-label>
+              <ion-select formControlName="idFaseAlimentacion">
+                <ion-select-option *ngFor="let fase of listaFaseAlimentacion" [value]="fase.id">{{fase.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/hen.svg"></ion-icon>
+                Mortalidad Acumulada:
+              </ion-label>
+              <ion-input formControlName="mortalidadAcumulada" type="number" placeholder="Digite N° de aves"></ion-input>
+              <ion-note slot="error" *ngIf="InfoProductivaForm.get('mortalidadAcumulada').hasError('numAvesInvalid')">
+                La mortalidad no puede ser mayor al numero de aves encasetadas.
+              </ion-note>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/hen.svg"></ion-icon>
+                Seleccion Acumulada:
+              </ion-label>
+              <ion-input formControlName="seleccionAcumulada" type="number" placeholder="Digite N° de aves"></ion-input>
+              <ion-note slot="error" *ngIf="InfoProductivaForm.get('seleccionAcumulada').hasError('numAvesInvalid')">
+                La Seleccion no puede ser mayor al numero de aves encasetadas.
+              </ion-note>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/food.svg"></ion-icon>
+                Marca de Alimento:
+              </ion-label>
+              <ion-select formControlName="idMarcaAlimento" interface="popover" placeholder="Seleccione Marca de Alimento">
+                <ion-select-option *ngFor="let alimento of listaMarcaAlimento" [value]="alimento.id">{{alimento.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="6" size-lg="4">
+            <ion-item class="borde-cafe">
+              <ion-label color="pollos-cafe" position="floating">
+                <ion-icon slot="start" src="../../assets/icons/nombre.svg"></ion-icon>
+                Observaciones:
+              </ion-label>
+              <ion-input formControlName="observacion" type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <br>
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col class="ion-align-self-center" size="4">
+              <ion-fab-button color="italapp-pollos">
+                <ion-icon src="../../assets/icons/back.svg"></ion-icon>
+              </ion-fab-button>
+            </ion-col>
+            <ion-col class="ion-align-self-center" size="4">
+              <ion-fab-button color="italapp-pollos" [disabled]="!InfoProductivaForm.valid" (click)="SaveOrUpdate()">
+                <ion-icon src="../../assets/icons/save.svg"></ion-icon>
+              </ion-fab-button>
+            </ion-col>
+            <ion-col class="ion-align-self-center" size="4">
+              <ion-fab-button color="italapp-pollos">
+                <ion-icon src="../../assets/icons/reset.svg"></ion-icon>
+              </ion-fab-button>
+            </ion-col>
+          </ion-row>
+    
+          <ion-row>
+            <ion-col class="ion-align-self-center" size="4"><ion-note color="dark">Regresar</ion-note></ion-col>
+            <ion-col class="ion-align-self-center" size="4"><ion-note color="dark">Guardar</ion-note></ion-col>
+            <ion-col class="ion-align-self-center" size="4"><ion-note color="dark">Limpiar</ion-note></ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+</ion-content>

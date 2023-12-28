@@ -1,0 +1,130 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Reportes Liquidaciones
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-row>
+    <ion-col size="12" size-sm="6" size-lg="6">
+      <ion-item  class="borde-cafe">
+        <ion-label color="pollos-cafe" position="fixed">
+          <ion-icon slot="start" src="../../assets/icons/customer.svg"></ion-icon>
+          Cliente:
+        </ion-label>
+          <ion-select interface="popover" placeholder="Seleccionar Cliente" (ionChange)="getGranjas($event)">
+            <ion-select-option *ngFor="let cliente of listaClientes" [value]="cliente.id">{{cliente.nombre}}</ion-select-option>
+          </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12" size-sm="6" size-lg="6">
+      <ion-item class="borde-cafe">
+        <ion-label color="pollos-cafe" position="fixed">
+          <ion-icon slot="start" src="../../assets/icons/registro_granjas.svg"></ion-icon>
+          Granja:
+        </ion-label>
+          <ion-select interface="popover" placeholder="Seleccionar Granja" (ionChange)="getGalpones($event)">
+            <ion-select-option *ngFor="let granja of listaGranjas" [value]="granja.id">{{granja.nombre}}</ion-select-option>
+          </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12" size-sm="6" size-lg="6">
+      <ion-item class="borde-cafe">
+        <ion-label color="pollos-cafe" position="fixed">
+          <ion-icon slot="start" src="../../assets/icons/warehouse.svg"></ion-icon>
+          Galpon:
+        </ion-label>
+          <ion-select interface="popover" placeholder="Seleccionar Galpon" (ionChange)="getLotes($event)">
+            <ion-select-option *ngFor="let galpon of listaGalpones" [value]="galpon.id">{{galpon.nombre}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+    </ion-col>
+    <ion-col size="12" size-sm="6" size-lg="6">
+      <ion-item class="borde-cafe">
+        <ion-label color="pollos-cafe" position="fixed">
+          <ion-icon slot="start" src="../../assets/icons/lotes.svg"></ion-icon>
+          Lote:
+        </ion-label>
+          <ion-select interface="popover" placeholder="Seleccionar Lote" (ionChange)="seleccionarLote($event)">
+            <ion-select-option *ngFor="let lote of listaLotes" [value]="lote.id" text-wrap>
+              {{lote.codLote}}_{{lote.fechaRegistroInicio | date:'ddMMyy'}}_{{lote.nombre}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row style="margin-top:10px;">
+    <ion-col class="borde-cafe" size="12" size-sm="6" size-lg="6">
+      <canvas id="chartCanvas"></canvas>
+    </ion-col>
+    <ion-col class="borde-cafe" size="12" size-sm="6" size-lg="6">
+      <canvas #barCanvas></canvas>
+    </ion-col>
+  </ion-row>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col class="fondo-encabezados" size="12" size-sm="12" size-lg="12">
+        RESUMEN LIQUIDACION % DIF GUIA
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6" class="fondo-encabezados">Parametro</ion-col>
+      <ion-col size="3" class="fondo-encabezados">Valor</ion-col>
+      <ion-col size="3" class="fondo-encabezados">% DIf Guia</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let lista of listaRepLiqDifGuia">
+      <ion-col size="6" class="grilla-listaPorc">Edad</ion-col>
+      <ion-col size="3" class="grilla-listaPorc">{{lista.edadSacrificio}}</ion-col>
+      <ion-col size="3" class="grilla-listaPorc"></ion-col>
+      <ion-col size="6" class="grilla-listaPorc">Aves Finales</ion-col>
+      <ion-col size="3" class="grilla-listaPorc">{{lista.avesFinales}}</ion-col>
+      <ion-col size="3" class="grilla-listaPorc"></ion-col>
+      <ion-col size="6" class="grilla-listaPorc">Peso (g)</ion-col>
+      <ion-col size="3" class="grilla-listaPorc">{{lista.pesoPromedioLiq}}</ion-col>
+      <ion-col size="3" class="grilla-listaPorc"
+      [ngStyle]="{'background': lista.difGuiaPesoPromedio <= 0 ? 'rgba(192, 80, 77, 0.5)' : 'rgba(154, 186, 91, 0.5)'}">{{lista.difGuiaPesoPromedio | number:'1.0-1':'es'}} %</ion-col>
+      <ion-col size="6" class="grilla-listaPorc">Consumo Acumulado (g)</ion-col>
+      <ion-col size="3" class="grilla-listaPorc">{{lista.consumoAcumuladoTotal | number:'1.0-2':'es'}}</ion-col>
+      <ion-col size="3" class="grilla-listaPorc"
+      [ngStyle]="{'background': lista.difGuiaAcumuladoTotal <= 0 ? 'rgba(192, 80, 77, 0.5)' : 'rgba(154, 186, 91, 0.5)'}">{{lista.difGuiaAcumuladoTotal | number:'1.0-1':'es'}} %</ion-col>
+      <ion-col size="6" class="grilla-listaPorc">CA</ion-col>
+      <ion-col size="3" class="grilla-listaPorc">{{lista.conversionAlimenticia | number:'1.0-2':'es'}}</ion-col>
+      <ion-col size="3" class="grilla-listaPorc"
+      [ngStyle]="{'background': lista.difGuiaConversionAlimenticia <= 0 ? 'rgba(192, 80, 77, 0.5)' : 'rgba(154, 186, 91, 0.5)'}">{{lista.difGuiaConversionAlimenticia | number:'1.0-1':'es'}} %</ion-col>
+      <ion-col size="6" class="grilla-listaPorc">Ganancia Diaria Acumulada</ion-col>
+      <ion-col size="3" class="grilla-listaPorc">{{lista.gananciaDiariaPromedio | number:'1.0-1':'es'}}</ion-col>
+      <ion-col size="3" class="grilla-listaPorc"
+      [ngStyle]="{'background': lista.difGuiaGananciaDiariaPromedio <= 0 ? 'rgba(192, 80, 77, 0.5)' : 'rgba(154, 186, 91, 0.5)'}">{{lista.difGuiaGananciaDiariaPromedio | number:'1.0-1':'es'}} %</ion-col>
+      <ion-col size="6" class="grilla-listaPorc">Mortalidad %</ion-col>
+      <ion-col size="3" class="grilla-listaPorc">{{lista.mortalidadPorcen | number:'1.0-2':'es'}}</ion-col>
+      <ion-col size="3" class="grilla-listaPorc"></ion-col>
+      <ion-col size="6" class="grilla-listaPorc">Eficiencia Europea</ion-col>
+      <ion-col size="3" class="grilla-listaPorc">{{lista.eficienciaEuropea | number:'1.0-2':'es'}}</ion-col>
+      <ion-col size="3" class="grilla-listaPorc"></ion-col>
+      <ion-col size="6" class="grilla-listaPorc">IP</ion-col>
+      <ion-col size="3" class="grilla-listaPorc">{{lista.ip | number:'1.0-2':'es'}}</ion-col>
+      <ion-col size="3" class="grilla-listaPorc"></ion-col>
+      <ion-col size="6" class="grilla-listaPorc">Precio Venta del Pollo/Kg</ion-col>
+      <ion-col size="3" class="grilla-listaPorc">{{lista.precioVentaPollo | number:'1.0-0':'es'}}</ion-col>
+      <ion-col size="3" class="grilla-listaPorc"></ion-col>
+      <ion-col size="6" class="grilla-listaPorc">Costo/Kg de Pollo</ion-col>
+      <ion-col size="3" class="grilla-listaPorc">{{lista.costoKgPollo | number:'1.0-0':'es'}}</ion-col>
+      <ion-col size="3" class="grilla-listaPorc"></ion-col>
+      <ion-col size="6" class="grilla-listaPorc">Ingreso Bruto/Kg de Pollo</ion-col>
+      <ion-col size="3" class="grilla-listaPorc">{{lista.ingresoBrutoKgPollo | number:'1.0-0':'es'}}</ion-col>
+      <ion-col size="3" class="grilla-listaPorc"></ion-col>
+
+
+
+    </ion-row>
+  
+
+  </ion-grid>
+</ion-content>
